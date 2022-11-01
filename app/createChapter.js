@@ -1,28 +1,26 @@
 import React from "react";
 import { SafeAreaView, ScrollView, StyleSheet, TextInput, Text, View, Button } from "react-native";
 
-const createSubject = ({navigation}) => {
+const createChapter = ({navigation}) => {
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.header}>Create My Subject</Text>
+      <Text style={styles.header}>Create Chapter</Text>
       <TextInput
         style={styles.textinput}
-        placeholder="รหัสวิชา"
-        />
-      <TextInput
-        style={styles.textinput}
-        placeholder="ชื่อวิชา"
-        keyboardType="numeric"
+        placeholder="ชื่อบทเรียน"
         />
       <textarea style={styles.area} placeholder="รายละเอียดวิชา"></textarea>
       <View style={styles.buttonAdd}>
-        <Button title="+" color="#937DC2"/>
-        <Text style={styles.description}>อัพโหลดรูปหน้าปก</Text>
+        <Button title="+" style={styles.add}/>
+        <Text style={styles.description}>อัพโหลดวิดีโอ</Text>
+      </View>
+      <View style={styles.buttonAdd}>
+        <Button title="+" style={styles.add}/>
+        <Text style={styles.description}>อัพโหลดไฟล์</Text>
       </View>
       <View  style={styles.buttonCreate}>
         <Button title="submit"
-        color="#937DC2"
-        onPress={() => { navigation.navigate("s1"); }}/>
+        onPress={() => { navigation.navigate("s3"); }}/>
       </View>
     </SafeAreaView>
   );
@@ -34,7 +32,7 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     // justifyContent: "flex-start",
     // alignItems: "center",
-    backgroundColor: "#fffafd",
+    backgroundColor: "#C7E7FF",
     
   },
   textinput: {
@@ -44,23 +42,20 @@ const styles = StyleSheet.create({
     padding: 10,
     color: "gray",
     backgroundColor: "#fff",
-    borderRadius: 15,
-    color: "#937DC2"
+    borderRadius: 15
   },
   area:{
     height: 100,
     margin: 12,
     // borderWidth: 1,
     padding: 10,
-    borderRadius: 15,
-    color: "#937DC2"
+    borderRadius: 15
 
   },
   header:{
     fontSize: 30,
     margin: 12,
-    fontWeight: 'bold',
-    color: "#937DC2"
+    fontWeight: 'bold'
   },
   buttonCreate:{
     flex: 1,
@@ -79,11 +74,13 @@ const styles = StyleSheet.create({
     padding: 5
 
   },
+  // add:{
+  //   padding: 10,
+  // },
   description:{
     fontSize: 20,
     marginLeft: 10,
-    color: "#937DC2"
   }
 });
 
-export default createSubject;
+export default createChapter;
