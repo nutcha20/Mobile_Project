@@ -1,7 +1,7 @@
 import React from "react";
-import { SafeAreaView, ScrollView, StyleSheet, TextInput, Text, View, Button } from "react-native";
+import { SafeAreaView, ScrollView, StyleSheet, TextInput, Text, View, Button, Textarea } from "react-native";
 
-const createSubject = ({navigation}) => {
+const createPage = ({navigation}) => {
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.header}>Create My Subject</Text>
@@ -14,7 +14,7 @@ const createSubject = ({navigation}) => {
         placeholder="ชื่อวิชา"
         keyboardType="numeric"
         />
-      <textarea style={styles.area} placeholder="รายละเอียดวิชา"></textarea>
+      {/* <Textarea style={styles.area} placeholder="รายละเอียดวิชา"></Textarea> */}
       <View style={styles.buttonAdd}>
         <Button title="+" color="#937DC2"/>
         <Text style={styles.description}>อัพโหลดรูปหน้าปก</Text>
@@ -86,4 +86,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default createSubject;
+export default createPage;

@@ -37,7 +37,8 @@ const chapterList = ({ navigation }) => {
             
             <View style={styles.buttonCreate}>
                 <Button title="Create Chapter"
-                    onPress={() => { navigation.navigate("s4"); }} />
+                    onPress={() => { navigation.navigate("s4"); }}
+                    color="#937DC2" />
             </View>
         </View>
     );
@@ -48,7 +49,7 @@ export default chapterList;
 const styles = StyleSheet.create({
     fullContainer: {
         flex: 2,
-        backgroundColor: "#C7E7FF",
+        backgroundColor: "#fffafd",
         flexDirection: "col",
         justifyContent: "flex-start",
     },
@@ -68,7 +69,6 @@ const styles = StyleSheet.create({
     },
     container: {
         flex: 2,
-        backgroundColor: "#C7E7FF",
         flexDirection: "row",
         justifyContent: "space-evenly",
        
@@ -92,7 +92,8 @@ const styles = StyleSheet.create({
     header: {
         fontSize: 30,
         margin: 12,
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        color: "#937DC2"
     },
     logo: {
         width: 120,
@@ -113,7 +114,7 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         padding: 10,
         marginBottom: 20,
-        shadowColor: '#303838',
+        shadowColor: '#937DC2',
         shadowOffset: { width: 0, height: 5 },
         shadowRadius: 10,
         shadowOpacity: 0.35,

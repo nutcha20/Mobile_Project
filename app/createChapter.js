@@ -1,5 +1,5 @@
 import React from "react";
-import { SafeAreaView, ScrollView, StyleSheet, TextInput, Text, View, Button } from "react-native";
+import { SafeAreaView, ScrollView, StyleSheet, TextInput, Text, View, Button, Textarea } from "react-native";
 
 const createChapter = ({navigation}) => {
   return (
@@ -9,18 +9,19 @@ const createChapter = ({navigation}) => {
         style={styles.textinput}
         placeholder="ชื่อบทเรียน"
         />
-      <textarea style={styles.area} placeholder="รายละเอียดวิชา"></textarea>
+      {/* <Textarea style={styles.area} placeholder="รายละเอียดวิชา"></Textarea> */}
       <View style={styles.buttonAdd}>
-        <Button title="+" style={styles.add}/>
+        <Button title="+" style={styles.add} color="#937DC2"/>
         <Text style={styles.description}>อัพโหลดวิดีโอ</Text>
       </View>
       <View style={styles.buttonAdd}>
-        <Button title="+" style={styles.add}/>
+        <Button title="+" style={styles.add} color="#937DC2"/>
         <Text style={styles.description}>อัพโหลดไฟล์</Text>
       </View>
       <View  style={styles.buttonCreate}>
         <Button title="submit"
-        onPress={() => { navigation.navigate("s3"); }}/>
+        onPress={() => { navigation.navigate("s3"); }}
+        color="#937DC2"/>
       </View>
     </SafeAreaView>
   );
@@ -32,7 +33,7 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     // justifyContent: "flex-start",
     // alignItems: "center",
-    backgroundColor: "#C7E7FF",
+    backgroundColor: "#fffafd",
     
   },
   textinput: {

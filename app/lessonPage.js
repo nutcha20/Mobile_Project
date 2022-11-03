@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     // justifyContent: "flex-start",
     // alignItems: "center",
-    backgroundColor: "#C7E7FF",
+    backgroundColor: "#fffafd",
     
   },
   textinput: {
