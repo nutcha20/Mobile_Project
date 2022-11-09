@@ -1,27 +1,39 @@
 import React from "react";
 import { SafeAreaView, ScrollView, StyleSheet, TextInput, Text, View, Button, Textarea } from "react-native";
 
-const createChapter = ({navigation}) => {
+const createPage = ({navigation}) => {
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.header}>Create Chapter</Text>
+      <Text style={styles.header}>Create My Subject</Text>
       <TextInput
         style={styles.textinput}
-        placeholder="ชื่อบทเรียน"
+        placeholder="รหัสวิชา"
         />
-      {/* <Textarea style={styles.area} placeholder="รายละเอียดวิชา"></Textarea> */}
+      <TextInput
+        style={styles.textinput}
+        placeholder="ชื่อวิชา"
+        keyboardType="numeric"
+        />
+        <TextInput
+        style={styles.textinput}
+        placeholder="แขนง"
+        keyboardType="numeric"
+        />
+        <TextInput
+        style={styles.textinput}
+        placeholder="ชั้นปี"
+        keyboardType="numeric"
+        />
+      <TextInput multiline={true}
+        numberOfLines={10} style={styles.area} placeholder="รายละเอียดวิชา"/>
       <View style={styles.buttonAdd}>
-        <Button title="+" style={styles.add} color="#937DC2"/>
-        <Text style={styles.description}>อัพโหลดวิดีโอ</Text>
+        <Button title="+" color="#937DC2"/>
+        <Text style={styles.description}>อัพโหลดรูปหน้าปก</Text>
       </View>
-      <View style={styles.buttonAdd}>
-        <Button title="+" style={styles.add} color="#937DC2"/>
-        <Text style={styles.description}>อัพโหลดไฟล์</Text>
-      </View>
-      <View  style={styles.buttonCreate}>
+      <View style={styles.buttonCreate}>
         <Button title="submit"
-        onPress={() => { navigation.navigate("s3"); }}
-        color="#937DC2"/>
+        color="#937DC2"
+        onPress={() => { navigation.navigate("s1"); }}/>
       </View>
     </SafeAreaView>
   );
@@ -43,20 +55,23 @@ const styles = StyleSheet.create({
     padding: 10,
     color: "gray",
     backgroundColor: "#fff",
-    borderRadius: 15
+    borderRadius: 15,
+    color: "#937DC2"
   },
   area:{
     height: 100,
     margin: 12,
     // borderWidth: 1,
     padding: 10,
-    borderRadius: 15
+    borderRadius: 15,
+    color: "#937DC2"
 
   },
   header:{
     fontSize: 30,
     margin: 12,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    color: "#937DC2"
   },
   buttonCreate:{
     flex: 1,
@@ -75,13 +90,11 @@ const styles = StyleSheet.create({
     padding: 5
 
   },
-  // add:{
-  //   padding: 10,
-  // },
   description:{
     fontSize: 20,
     marginLeft: 10,
+    color: "#937DC2"
   }
 });
 
-export default createChapter;
+export default createPage;

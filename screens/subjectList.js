@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { StyleSheet, View, Text, Image, Button, TouchableOpacity } from "react-native";
 import { Dropdown } from 'react-native-element-dropdown';
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -14,12 +14,24 @@ const data = [
     { label: 'Item 8', value: '8' },
 ];
 
-const subjectList = ({ navigation }) => {
+const subjectList = ({ route, navigation }) => {
+    const { role, login } = route.params;
     const [value, setValue] = useState(null);
+ 
+
+    useEffect(() => {
+        // Use `setOptions` to update the button that we previously specified
+        // Now the button includes an `onPress` handler to update the count
+        navigation.setOptions({
+          headerRight: () => (
+            <Button onPress={() => navigation.navigate('profile')} title="user profile" />
+          ),
+        });
+      }, [navigation]);
 
     return (
-        <View style={styles.fullContainer}>
-
+        
+         <View style={styles.fullContainer} >
             <Dropdown
                 style={styles.dropdown}
                 placeholderStyle={styles.placeholderStyle}
@@ -42,7 +54,7 @@ const subjectList = ({ navigation }) => {
                 )}
             />
             <View style={styles.container}>
-                <TouchableOpacity style={styles.row} onPress={() => { navigation.navigate("s3"); }}>
+                <TouchableOpacity style={styles.row} onPress={() => { navigation.navigate("s3", { role: role }); }}>
                     <Image style={styles.logo} source={require("../assets/react_native.png")} />
                     <View style={[styles.col, { padding: 10 }]}>
                         <Text style={styles.header}>Mobile Device Programming</Text>
@@ -74,12 +86,19 @@ const subjectList = ({ navigation }) => {
                 </TouchableOpacity>
             </View>
             <View style={styles.buttonCreate}>
-                <Button title="Create Subject"
-                    color="#937DC2"
-                    onPress={() => { navigation.navigate("s2"); }}
-                />
+                {role == "student" ?
+                    <></>
+                    :
+                    <Button title="Create Subject"
+                        color="#937DC2"
+                        onPress={() => { navigation.navigate("s2") }}
+                    />
+                }
             </View>
-        </View>
+        </View >
+            
+
+
     );
 };
 

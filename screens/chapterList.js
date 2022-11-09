@@ -4,8 +4,9 @@ import { Dropdown } from 'react-native-element-dropdown';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 
 
-const chapterList = ({ navigation }) => {
+const chapterList = ({ route, navigation }) => {
     const [value, setValue] = useState(null);
+    const { role } = route.params;
 
     return (
         <View style={styles.fullContainer}>
@@ -34,11 +35,16 @@ const chapterList = ({ navigation }) => {
                 </TouchableOpacity>
             </View>
 
-            
+
             <View style={styles.buttonCreate}>
-                <Button title="Create Chapter"
-                    onPress={() => { navigation.navigate("s4"); }}
-                    color="#937DC2" />
+                {role == "student" ?
+                    <></>
+                    :
+                    <Button title="Create Chapter"
+                        color="#937DC2"
+                        onPress={() => { navigation.navigate("s4"); }}
+                    />
+                }
             </View>
         </View>
     );
@@ -71,8 +77,8 @@ const styles = StyleSheet.create({
         flex: 2,
         flexDirection: "row",
         justifyContent: "space-evenly",
-       
-    flexWrap: "wrap",
+
+        flexWrap: "wrap",
         // flex: 1,
         // backgroundColor: '#fff',
         // alignItems: 'center',
@@ -119,7 +125,7 @@ const styles = StyleSheet.create({
         shadowRadius: 10,
         shadowOpacity: 0.35,
         margin: 10,
-        
-        
+
+
     }
 });
