@@ -1,5 +1,4 @@
 import { NavigationContainer ,Link } from "@react-navigation/native";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"; // v.6
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { Button } from "react-native";
 import LoginScreen from "./screens/loginScreen";
@@ -13,7 +12,7 @@ import profile from "./screens/profile";
 const Stack = createNativeStackNavigator();
 
 
-const navigator = ({ navigation }) => {
+const navigator = () => {
     return (
         <NavigationContainer>
             <Stack.Navigator>

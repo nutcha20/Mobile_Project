@@ -11,13 +11,6 @@ const LoginScreen = ({ navigation }) => {
 
 
     useEffect(() => {
-        // db.update(db.collection('user'));
-
-        // getDocs(dbRef).then((x) => {
-        //     // console.log(x.size);
-        //     x.forEach(y => console.log(y.data().name));
-        // })
-        // console.log(data);
         const unsubscribe = auth.onAuthStateChanged(user => {
             if (user) {
                 console.log("hi")
@@ -47,8 +40,6 @@ const LoginScreen = ({ navigation }) => {
             .then(userCredentials => {
                 const user = userCredentials.user;
                 const dbRef = collection(db, "user ");
-                // getDocs(dbRef).then((x) => {
-                // console.log(x.size);
                 const check = query(dbRef, where("email", "==", user.email));
                 if (check) {
                    getDocs(check).then((x) => {
@@ -56,12 +47,6 @@ const LoginScreen = ({ navigation }) => {
                    })
                 }
             })
-    // else console.log(false);
-    // })
-    // return user;
-    // // console.log(user.email);
-    // navigation.navigate("s1");
-
             .catch (error => alert("Oop! Something went wrong, please try again later"))
     }
 
@@ -88,21 +73,13 @@ return (
 
         <View style={styles.buttonContainer}>
             <TouchableOpacity
-                //   onPress={()=>{handleLogin(); navigation.navigate("s1");}}
                 onPress={handleLogin}
                 style={styles.button}
             >
                 <Text style={styles.buttonText}>Login</Text>
             </TouchableOpacity>
-            {/* <TouchableOpacity
-                    onPress={handleSignUp}
-                    style={[styles.button, styles.buttonOutline]}
-                >
-                    <Text style={styles.buttonOutlineText}>Register</Text>
-                </TouchableOpacity> */}
         </View>
     </KeyboardAvoidingView>
-    // <>HI</>
 )
 }
 
