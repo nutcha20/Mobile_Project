@@ -18,6 +18,7 @@ const navigator = () => {
             <Stack.Navigator>
                 <Stack.Screen name="login" component={LoginScreen}
                     options={{
+                        headerShown: false,
                         title: "Login",
                         headerStyle: { backgroundColor: "#937DC2" },
                         headerTintColor: "white",

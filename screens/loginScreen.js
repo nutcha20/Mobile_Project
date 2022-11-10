@@ -14,6 +14,13 @@ const LoginScreen = ({ navigation }) => {
         const unsubscribe = auth.onAuthStateChanged(user => {
             if (user) {
                 console.log("hi")
+                const dbRef = collection(db, "user ");
+                const check = query(dbRef, where("email", "==", user.email));
+                if (check) {
+                   getDocs(check).then((x) => {
+                    navigation.replace("s1", { role: x.docs[0].data().role });
+                   })
+                }
             }
         })
 
@@ -39,13 +46,14 @@ const LoginScreen = ({ navigation }) => {
         signInWithEmailAndPassword(auth, email, password)
             .then(userCredentials => {
                 const user = userCredentials.user;
-                const dbRef = collection(db, "user ");
-                const check = query(dbRef, where("email", "==", user.email));
-                if (check) {
-                   getDocs(check).then((x) => {
-                    navigation.replace("s1", { role: x.docs[0].data().role, login: true });
-                   })
-                }
+                // const dbRef = collection(db, "user ");
+                // const check = query(dbRef, where("email", "==", user.email));
+                // if (check) {
+                //    getDocs(check).then((x) => {
+                //     navigation.replace("s1", { role: x.docs[0].data().role, login: true });
+                //    })
+                // }
+                console.log(user.email + "success")
             })
             .catch (error => alert("Oop! Something went wrong, please try again later"))
     }
