@@ -35,14 +35,15 @@ const navigator = () => {
                 />
                 <Stack.Screen name="s1" component={subject}
                     options={{
+                        headerShown: false,
                         title: "My Subject",
                         headerStyle: { backgroundColor: "#937DC2" },
                         headerTintColor: "white",
-                        headerRight: () => (
+                        // headerRight: () => (
                         
-                        <Button title="user profile"/>
+                        // <Button title="user profile"/>
                         
-                        )
+                        // )
                     }}
                 />
                 <Stack.Screen name="s2" component={createSj}

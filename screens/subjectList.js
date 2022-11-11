@@ -19,19 +19,24 @@ const subjectList = ({ route, navigation }) => {
     const [value, setValue] = useState(null);
  
 
-    useEffect(() => {
-        // Use `setOptions` to update the button that we previously specified
-        // Now the button includes an `onPress` handler to update the count
-        navigation.setOptions({
-          headerRight: () => (
-            <Button onPress={() => navigation.navigate('profile')} title="user profile" />
-          ),
-        });
-      }, [navigation]);
+    // useEffect(() => {
+    //     // Use `setOptions` to update the button that we previously specified
+    //     // Now the button includes an `onPress` handler to update the count
+    //     navigation.setOptions({
+    //       headerRight: () => (
+    //         <Button onPress={() => navigation.navigate('profile')} title="user profile" />
+    //       ),
+    //     });
+    //   }, [navigation]);
 
     return (
         
          <View style={styles.fullContainer} >
+            <View style={styles.goProfile}>
+                <TouchableOpacity onPress={() => navigation.navigate('profile')} style={styles.userProfile}>
+                    Tezt
+                </TouchableOpacity>
+            </View>
             <Dropdown
                 style={styles.dropdown}
                 placeholderStyle={styles.placeholderStyle}
@@ -84,6 +89,7 @@ const subjectList = ({ route, navigation }) => {
                         </Text>
                     </View>
                 </TouchableOpacity>
+                
             </View>
             <View style={styles.buttonCreate}>
                 {role == "student" ?
@@ -106,7 +112,7 @@ export default subjectList;
 
 const styles = StyleSheet.create({
     fullContainer: {
-        flex: 2,
+        flex: 1,
         backgroundColor: "#fffafd",
         flexDirection: "col",
         justifyContent: "flex-start",
@@ -137,11 +143,13 @@ const styles = StyleSheet.create({
         fontSize: 16,
     },
     container: {
-        flex: 2,
-        // backgroundColor: "#C7E7FF",
+        // flex: 3,
+        backgroundColor: "#C8B1DC",
         flexDirection: "col",
         justifyContent: "flex-start",
         alignItems: "center",
+        padding: 8,
+        margin: 20
     },
     row: {
         flexDirection: "row",
@@ -183,9 +191,19 @@ const styles = StyleSheet.create({
     },
     buttonCreate: {
         flex: 1,
-        flexDirection: "column",
+        flexDirection: "row",
         justifyContent: "flex-end",
         alignItems: "flex-end",
         margin: 12
     },
+    goProfile:{
+        flex: 3,
+        flexDirection: "column",
+        justifyContent: "flex-start",
+        alignItems: "flex-end",
+        backgroundColor: "blue"
+    },
+    userProfile: {
+        backgroundColor: "red"
+    }
 });
