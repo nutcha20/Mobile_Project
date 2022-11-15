@@ -32,10 +32,23 @@ const subjectList = ({ route, navigation }) => {
     return (
 
         <View style={styles.fullContainer} >
-            <View style={styles.goProfile}>
-                <TouchableOpacity onPress={() => navigation.navigate('profile')} style={styles.userProfile}>
-                    Tezt
-                </TouchableOpacity>
+            {/* <View style={styles.navBar}> */}
+            <View style={styles.navTextimg}>
+            {/* <TouchableOpacity onPress={() => navigation.navigate('profile')} style={styles.userProfile}>
+            </TouchableOpacity> */}
+                <View style={styles.textWelcome}>
+                    <Text>Welcome</Text>
+                    <Text>it63070048</Text>
+                </View>
+                <View>
+                    <View>
+                    <TouchableOpacity onPress={() => navigation.navigate('profile')} style={styles.userProfile}>
+                        <Text>it63070048</Text>
+                    </TouchableOpacity>
+                    </View>
+                    <Image style={{ width: 190, height: 190 }} source={require("../assets/Dayflow Best Friends.png")}></Image>
+                </View>
+                {/* </View> */}
             </View>
             <Dropdown
                 style={styles.dropdown}
@@ -97,7 +110,7 @@ const subjectList = ({ route, navigation }) => {
             </View>
             <View style={styles.buttonCreate}>
                 {role == "student" ?
-                   null
+                    null
                     :
                     <Button title="Add Subject"
                         color="#937DC2"
@@ -128,7 +141,7 @@ const styles = StyleSheet.create({
         borderWidth: 2,
         borderRadius: 10,
         backgroundColor: "white",
-        padding: 5
+        padding: 5,
     },
     icon: {
         marginRight: 5,
@@ -203,17 +216,20 @@ const styles = StyleSheet.create({
         marginRight: 12,
         marginBottom: 12
     },
-    goProfile: {
+    navBar: {
         flex: 1,
         flexDirection: "column",
-        justifyContent: "flex-start",
-        alignItems: "flex-end",
         backgroundColor: "#927DC2",
+        justifyContent: "space-around",
 
     },
     userProfile: {
-        backgroundColor: "red",
-        marginTop: 20
+        backgroundColor: "white",
+        justifyContent: "center",
+        alignItems: "center",
+        width: 100,
+        height: 45,
+        borderRadius: 50,
     },
     subjectHeader: {
         fontSize: 20,
@@ -221,5 +237,12 @@ const styles = StyleSheet.create({
         flexWrap: "wrap",
         color: "#937DC2",
         marginLeft: 12
-    }
+    },
+    navTextimg: {
+        flex: 1,
+        flexDirection: "row",
+        backgroundColor: "#927DC2",
+        justifyContent: "space-between",
+        alignItems: "center"
+    },
 });
