@@ -8,7 +8,7 @@ import lesson from "./screens/lessonPage";
 import chapter from "./screens/chapterList";
 import createCh from "./screens/createChapter";
 import profile from "./screens/profile";
-
+import Start from "./screens/startScreen"
 const Stack = createNativeStackNavigator();
 
 
@@ -16,6 +16,14 @@ const navigator = () => {
     return (
         <NavigationContainer>
             <Stack.Navigator>
+            <Stack.Screen name="start" component={Start}
+                    options={{
+                        headerShown: false,
+                        headerStyle: { backgroundColor: "#937DC2" },
+                        headerTintColor: "white",
+
+                    }}
+                />
                 <Stack.Screen name="login" component={LoginScreen}
                     options={{
                         headerShown: false,
