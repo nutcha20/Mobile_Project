@@ -83,7 +83,7 @@ const navigator = () => {
                         title: "Chapter 1",
                         headerStyle: { backgroundColor: "#937DC2" },
                         headerTintColor: "white",
-                        headerRight: () => (<Button title="user profile" />)
+                        // headerRight: () => (<Button title="user profile" />)
 
                     }} />
             </Stack.Navigator>

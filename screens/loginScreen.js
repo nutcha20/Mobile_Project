@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import { auth, db } from '../database/firebase'
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
-import { collection, getDocs, where, addDoc, deleteDoc, getDoc, query , onSnapshot} from "firebase/firestore"
+import { collection, getDocs, where, addDoc, deleteDoc, getDoc, query, onSnapshot } from "firebase/firestore"
 const LoginScreen = ({ navigation }) => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -48,33 +48,63 @@ const LoginScreen = ({ navigation }) => {
                 const dbRef = collection(db, "user ");
                 const check = query(dbRef, where("email", "==", user.email));
                 const dbsubject = collection(db, "subject")
+                var listSubject = [];
+
+                //    getDocs(check).then((x) => {
+
+                //     navigation.replace("s1", { role: x.docs[0].data().role, name: x.docs[0].data().name, lastname: x.docs[0].data().lastName, major: x.docs[0].data().major, degree: x.docs[0].data().degree, username: x.docs[0].data().username});
+                //    })
                 if (check) {
-                       getDocs(check).then((x) => {
+                    //    getDocs(check).then((x) => {
 
-                        navigation.replace("s1", { role: x.docs[0].data().role, name: x.docs[0].data().name, lastname: x.docs[0].data().lastName, major: x.docs[0].data().major, degree: x.docs[0].data().degree, username: x.docs[0].data().username});
-                       })
-                    // getDocs(check).then((x) => {
-                    //     console.log(x.docs[0].data().role)
-                    //     const check2 = query(dbsubject, where("major", "==", x.docs[0].data().major))
-                    //     onSnapshot(check2, (snapshot) => {
-                    //         console.log(snapshot.docs)
-                    //         snapshot.docs.forEach((doc) => {
-                    //             // setTestData((prev) => [...prev, doc.data()])
-                    //             console.log("onsnapshot", doc.data());
-                    //             navigation.replace("s1", {
-                    //                 role: x.docs[0].data().role,
-                    //                 name: x.docs[0].data().name,
-                    //                 lastname: x.docs[0].data().lastName,
-                    //                 major: x.docs[0].data().major,
-                    //                 degree: x.docs[0].data().degree,
-                    //                 username: x.docs[0].data().username,
-                    //                 docc: doc.data()
-                    //             });
-                    //             console.log(doc.data())
-                    //         })
-                    //     })
+                    //     navigation.replace("s1", { role: x.docs[0].data().role, name: x.docs[0].data().name, lastname: x.docs[0].data().lastName, major: x.docs[0].data().major, degree: x.docs[0].data().degree, username: x.docs[0].data().username});
+                    //    })
+                    getDocs(check).then((x) => {
+                        // console.log(x.docs[0].data().role)
+                        // const check2 = query(dbsubject, where("major", "==", x.docs[0].data().major))
+                        // if (check2) {
 
-                    // })
+                        //     onSnapshot(check2, (snapshot) => {
+                        //         console.log(snapshot.docs)
+                        //         snapshot.docs.forEach((doc) => {
+                        //           // setTestData((prev) => [...prev, doc.data()])
+                        //           console.log("onsnapshot", doc.data());
+                        //           console.log(doc.data())
+                        //           navigation.replace("s1", {
+                        //             role: x.docs[0].data().role,
+                        //             name: x.docs[0].data().name,
+                        //             lastname: x.docs[0].data().lastName,
+                        //             major: x.docs[0].data().major,
+                        //             degree: x.docs[0].data().degree,
+                        //             username: x.docs[0].data().username,
+                        //             docc: doc.data()
+                        //           });
+                        //         })
+                        //       })
+                        // }
+                        // else {
+                        //     navigation.replace("s1", {
+                        //         role: x.docs[0].data().role,
+                        //         name: x.docs[0].data().name,
+                        //         lastname: x.docs[0].data().lastName,
+                        //         major: x.docs[0].data().major,
+                        //         degree: x.docs[0].data().degree,
+                        //         username: x.docs[0].data().username,
+                        //         docc: []
+                        //     });
+                        // }
+                        navigation.replace("s1", {
+                            role: x.docs[0].data().role,
+                            name: x.docs[0].data().name,
+                            lastname: x.docs[0].data().lastName,
+                            major: x.docs[0].data().major,
+                            degree: x.docs[0].data().degree,
+                            username: x.docs[0].data().username,
+                            idsuj: x.docs[0].data().idSubject
+                            // docc: doc.data()
+                          });
+
+                    })
                 }
                 console.log(user.email + "success")
             })

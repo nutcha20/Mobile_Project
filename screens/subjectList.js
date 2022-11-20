@@ -1,55 +1,70 @@
-import { collection, doc, onSnapshot, query, where } from 'firebase/firestore';
-import React, { useState , useEffect} from 'react';
+import { collection, doc, getDocs, onSnapshot, query, where } from 'firebase/firestore';
+import React, { useState, useEffect, useInsertionEffect } from 'react';
 import { StyleSheet, View, Text, Image, Button, TouchableOpacity, ScrollView } from "react-native";
 import { Dropdown } from 'react-native-element-dropdown';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import { render } from "react-dom";
 import { db } from '../database/firebase';
 
-const data = [
-    { label: 'Item 1', value: '1' },
-    { label: 'Item 2', value: '2' },
-    { label: 'Item 3', value: '3' },
-    { label: 'Item 4', value: '4' },
-    { label: 'Item 5', value: '5' },
-    { label: 'Item 6', value: '6' },
-    { label: 'Item 7', value: '7' },
-    { label: 'Item 8', value: '8' },
-];
-let itemSubject = [];
+const dbSub = collection(db, "subject");
+var keepsubject = [];
+updateDbSub();
 
+function updateDbSub() {
+    keepsubject = [];
+    getDocs(dbSub).then((x) => x.docs.forEach((doc) => {
+        keepsubject.push(doc.data())
+        console.log(doc.id)
+    }
+    ))
+}
+
+// const data = [
+//     { label: 'Item 1', value: '1' },
+//     { label: 'Item 2', value: '2' },
+//     { label: 'Item 3', value: '3' },
+//     { label: 'Item 4', value: '4' },
+//     { label: 'Item 5', value: '5' },
+//     { label: 'Item 6', value: '6' },
+//     { label: 'Item 7', value: '7' },
+//     { label: 'Item 8', value: '8' },
+// ];
 
 const subjectList = ({ route, navigation }) => {
-    var keepsubject = [];
-    const { role, name, lastname, major, degree, username, docc } = route.params;
-    keepsubject.push(docc);
+    var itemSubject = [];
+    const { role, name, lastname, major, degree, username, docc, idsuj } = route.params;
     const [value, setValue] = useState(null);
-    // keepsubject.forEach((item, index) => {
-    //     itemSubject.push(<TouchableOpacity style={[styles.row, { padding: 10 }]} onPress={() => {
-    //         navigation.navigate("s3", {
-    //             role: role,
-    //             name: name,
-    //             lastname: lastname,
-    //             major: major,
-    //             degree: degree,
-    //             username: username
-    //         });
-    //     }}>
-    //         <Image key={index} style={styles.logo} source={{ uri: item.image }}></Image>
-    //         <View style={styles.col}>
-    //             <Text style={styles.header}> {item.nameSubject}</Text>
-    //             <Text numberOfLines={3} style={[{ color: "#937DC2", marginLeft: 5}]}>
-    //                 {item.details}
-    //             </Text>
-
-    //         </View>
-    //     </TouchableOpacity>)
-    // })
-    // console.log(docc)
     
-    // console.log(keepsubject);
-    return (
+    if (role == "student") {
+        var docsSubject = keepsubject.filter(doc => { return doc.major == major })
+    }
+    else if (role == "teacher") {
+        var docsSubject = keepsubject.filter(doc => { return doc.idSubject == idsuj })
+    }
+    console.log(docsSubject.uid)
 
+    docsSubject.forEach((doc) => {
+        itemSubject.push(<TouchableOpacity style={[styles.row, { padding: 10 }]} onPress={() => {
+            navigation.navigate("s3", {
+                role: role,
+                name: name,
+                lastname: lastname,
+                major: major,
+                degree: degree,
+                username: username,
+                idpickSuj: doc.idSubject
+            });
+        }}>
+            <Image style={styles.logo} source={{ uri: doc.image }}></Image>
+            <View style={styles.col}>
+                <Text style={styles.header}> {doc.nameSubject}</Text>
+                <Text numberOfLines={3} style={[{ color: "#937DC2", marginLeft: 5 }]}>
+                    {doc.details}
+                </Text>
+            </View>
+        </TouchableOpacity>)
+    })
+    return (
         <View style={styles.fullContainer} >
             {/* <View style={styles.navBar}> */}
             <View style={styles.navTextimg}>
@@ -67,7 +82,7 @@ const subjectList = ({ route, navigation }) => {
                 </View>
                 {/* </View> */}
             </View>
-            <Dropdown
+            {/* <Dropdown
                 style={styles.dropdown}
                 placeholderStyle={styles.placeholderStyle}
                 selectedTextStyle={styles.selectedTextStyle}
@@ -86,19 +101,19 @@ const subjectList = ({ route, navigation }) => {
                 }}
                 renderLeftIcon={() => (
                     <AntDesign style={styles.icon} color="black" name="Safety" size={20} />
-                )}
-            />
+                    )}
+                    /> */}
             <Text style={styles.subjectHeader}>Your Subject</Text>
             <View style={styles.container}>
                 <ScrollView>
 
-                   {/* {itemSubject} */}
+                    {itemSubject}
                     {/* <TouchableOpacity style={styles.row}>
                         <Image style={styles.logo} source={require("../assets/react_native.png")} />
                         <View style={[styles.col, { padding: 10 }]}>
-                            <Text style={styles.header}>Mobile Device Programming</Text>
-                            <Text numberOfLines={3} style={[{ color: "#937DC2" }]}>
-                                Course about how to write the Mobile App in iOS and Android by using
+                        <Text style={styles.header}>Mobile Device Programming</Text>
+                        <Text numberOfLines={3} style={[{ color: "#937DC2" }]}>
+                        Course about how to write the Mobile App in iOS and Android by using
                                 React-Native.
                             </Text>
                         </View>
@@ -106,7 +121,7 @@ const subjectList = ({ route, navigation }) => {
                     <TouchableOpacity style={styles.row}>
                         <Image style={styles.logo} source={require("../assets/react_native.png")} />
                         <View style={[styles.col, { padding: 10 }]}>
-                            <Text style={styles.header}>Mobile Device Programming</Text>
+                        <Text style={styles.header}>Mobile Device Programming</Text>
                             <Text numberOfLines={3} style={[{ color: "#937DC2" }]}>
                                 Course about how to write the Mobile App in iOS and Android by using
                                 React-Native.
@@ -127,14 +142,13 @@ const subjectList = ({ route, navigation }) => {
                 }
             </View>
         </View >
-
-
-
     );
 };
 
 export default subjectList;
 
+// itemSubject.length = 0;
+// console.log(itemSubject)
 const styles = StyleSheet.create({
     fullContainer: {
         flex: 1,

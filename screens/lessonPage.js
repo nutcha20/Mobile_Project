@@ -1,35 +1,64 @@
-import React from "react";
+import React, { useState, useEffect, useInsertionEffect } from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, TextInput, Text, View, Button, Image } from "react-native";
+import { collection, doc, getDocs, onSnapshot, query, where } from 'firebase/firestore';
+import { db } from '../database/firebase';
 
-const createSubject = ({navigation}) => {
+const dbSub = collection(db, "subject");
+var keepChapter = [];
+updateDbSub();
+
+function updateDbSub() {
+  keepChapter = [];
+  getDocs(dbSub).then((x) => x.docs.forEach((doc) => keepChapter.push(doc.data())))
+  console.log(keepChapter)
+}
+const createSubject = ({ navigation, route }) => {
+  var itemSubject = [];
+
+  // const [value, setValue] = useState(null);
+  const { role, name, lastname, major, degree, username, idpickSuj, idCh } = route.params;
+  useEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <Button onPress={() => navigation.navigate('profile', { role: role, name: name, last: lastname, maj: major, dg: degree, username: username })} title="user profile" />
+      ),
+    });
+  }, [navigation]);
+  var docsSubject = keepChapter.filter(doc => { return doc.idSubject == idpickSuj })
+  var docsLesson = docsSubject[0].chapter.filter(doc => { return doc.idChapter == idCh })
+  console.log(docsLesson)
+  docsLesson.forEach((doc) => {
+    itemSubject.push(
+      <View style={styles.row}>
+        <View style={[styles.col, { padding: 10 }]}>
+          <Text style={styles.header}>Chapter {doc.idChapter}</Text>
+          <Text style={styles.header}>{doc.name}</Text>
+          <Text numberOfLines={3}>
+          {doc.detail}
+          </Text>
+          <View style={styles.buttonAdd}>
+            <Button title="PDF" style={styles.add} color="red" />
+            <Text style={styles.description}>Week{doc.idChapter}.pdf</Text>
+          </View>
+        </View>
+      </View>
+    )
+  })
   return (
     <View style={styles.container}>
-                <View style={styles.row}>
-                    <View style={[styles.col, { padding: 10 }]}>
-                        <Text style={styles.header}>บทที่ 1</Text>
-                        <Text style={styles.header}>Introduce to ...</Text>
-                        <Text numberOfLines={3}>
-                            Course about how to write the Mobile App in iOS and Android by using
-                            React-Native.
-                        </Text>
-                        <View style={styles.buttonAdd}>
-        <Button title="PDF" style={styles.add} color="red"/>
-        <Text style={styles.description}>Week1.pdf</Text>
-      </View>
-                    </View>
-                </View>
-                </View>
+      { itemSubject }
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container:{
+  container: {
     flex: 2,
     flexDirection: "column",
     // justifyContent: "flex-start",
     // alignItems: "center",
     backgroundColor: "#fffafd",
-    
+
   },
   textinput: {
     height: 50,
@@ -40,7 +69,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     borderRadius: 15
   },
-  area:{
+  area: {
     height: 100,
     margin: 12,
     // borderWidth: 1,
@@ -48,19 +77,19 @@ const styles = StyleSheet.create({
     borderRadius: 15
 
   },
-  header:{
+  header: {
     fontSize: 30,
     margin: 12,
     fontWeight: 'bold',
   },
-  buttonCreate:{
+  buttonCreate: {
     flex: 1,
     flexDirection: "column",
     justifyContent: "flex-end",
     alignItems: "flex-end",
-    margin: 12 
+    margin: 12
   },
-  buttonAdd:{
+  buttonAdd: {
     flex: 1,
     flexDirection: "row",
     justifyContent: "flex-start",
@@ -75,11 +104,11 @@ const styles = StyleSheet.create({
     margin: 15,
     backgroundColor: "white",
     borderRadius: 15
-},
+  },
   // add:{
   //   padding: 10,
   // },
-  description:{
+  description: {
     fontSize: 20,
     marginLeft: 10,
   },
@@ -88,13 +117,13 @@ const styles = StyleSheet.create({
     flexDirection: "col",
     justifyContent: "center",
     alignItems: "center",
-},
-logo: {
+  },
+  logo: {
     width: 120,
     height: 127,
 
-},
-  description:{
+  },
+  description: {
     fontSize: 20,
     marginLeft: 10,
   }
