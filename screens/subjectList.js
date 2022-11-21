@@ -13,12 +13,15 @@ updateDbSub();
 function updateDbSub() {
     keepsubject = [];
     getDocs(dbSub).then((x) => x.docs.forEach((doc) => {
-        keepsubject.push(doc.data())
-        console.log(doc.id)
+        keepsubject.push({id:doc.id, ...doc.data()})
+        console.log(keepsubject)
     }
     ))
 }
-
+// getDocs(dbSub).then((x) => x.docs.forEach((doc) => {
+//     keepsubject.push({id:doc.id, ...doc.data()})
+//     console.log(keepsubject)
+// }))
 // const data = [
 //     { label: 'Item 1', value: '1' },
 //     { label: 'Item 2', value: '2' },
@@ -34,7 +37,7 @@ const subjectList = ({ route, navigation }) => {
     var itemSubject = [];
     const { role, name, lastname, major, degree, username, docc, idsuj } = route.params;
     const [value, setValue] = useState(null);
-    
+
     if (role == "student") {
         var docsSubject = keepsubject.filter(doc => { return doc.major == major })
     }
@@ -52,13 +55,14 @@ const subjectList = ({ route, navigation }) => {
                 major: major,
                 degree: degree,
                 username: username,
-                idpickSuj: doc.idSubject
+                idpickSuj: doc.idSubject,
+                uid: doc.id
             });
         }}>
             <Image style={styles.logo} source={{ uri: doc.image }}></Image>
             <View style={styles.col}>
                 <Text style={styles.header}> {doc.nameSubject}</Text>
-                <Text numberOfLines={3} style={[{ color: "#937DC2", marginLeft: 5 }]}>
+                <Text numberOfLines={3} style={[{ color: "white", marginLeft: 5 }]}>
                     {doc.details}
                 </Text>
             </View>
@@ -72,12 +76,12 @@ const subjectList = ({ route, navigation }) => {
             </TouchableOpacity> */}
                 <View>
                     <Text style={styles.headerWelcome}>Welcome</Text>
-                    <Text style={styles.headerWelcome}>it63070048</Text>
+                    <Text style={styles.headerusername}>{username}</Text>
                 </View>
                 <View>
                     <Image style={{ width: 220, height: 220, marginTop: 30 }} source={require("../assets/Dayflow Best Friends.png")}></Image>
                     <TouchableOpacity onPress={() => navigation.navigate('profile', { role: role, name: name, last: lastname, maj: major, dg: degree, username: username })} style={styles.userProfile}>
-                        <Text>it63070048</Text>
+                       <Image style={{ width: 50, height: 50 }} source={require("../assets/icons8-male-user-96.png")}></Image>
                     </TouchableOpacity>
                 </View>
                 {/* </View> */}
@@ -103,7 +107,7 @@ const subjectList = ({ route, navigation }) => {
                     <AntDesign style={styles.icon} color="black" name="Safety" size={20} />
                     )}
                     /> */}
-            <Text style={styles.subjectHeader}>Your Subject</Text>
+                <Text style={styles.subjectHeader}>YOUR SUBJECT</Text>
             <View style={styles.container}>
                 <ScrollView>
 
@@ -184,11 +188,11 @@ const styles = StyleSheet.create({
     },
     container: {
         flex: 2,
-        backgroundColor: "#C8B1DC",
+        // backgroundColor: "#C8B1DC",
         flexDirection: "column",
         justifyContent: "flex-start",
         alignItems: "center",
-        padding: 5,
+        // padding: 5,
         margin: 12,
         borderRadius: 20
     },
@@ -197,7 +201,7 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         alignItems: "flex-start",
         margin: 8,
-        backgroundColor: "white",
+        backgroundColor: "#C8B1DC",
         borderRadius: 20,
         // borderColor: "#937DC2",
         // borderWidth: 1.5
@@ -221,7 +225,7 @@ const styles = StyleSheet.create({
         fontSize: 20,
         fontWeight: 'bold',
         flexWrap: "wrap",
-        color: "#937DC2"
+        color: "white"
     },
     logo: {
         // flexDirection: "row",
@@ -247,22 +251,23 @@ const styles = StyleSheet.create({
 
     },
     userProfile: {
-        backgroundColor: "white",
-        justifyContent: "center",
-        alignItems: "center",
-        width: 100,
-        height: 45,
-        borderRadius: 50,
-        marginLeft: 80,
-        marginTop: 16,
+        // backgroundColor: "white",
+        // justifyContent: "center",
+        // alignItems: "flex-end",
+        // width: 100,
+        // height: 45,
+        // borderRadius: 50,
+        marginLeft: 150,
+        marginTop: 3,
         position: "absolute"
     },
     subjectHeader: {
         fontSize: 20,
         fontWeight: 'bold',
         flexWrap: "wrap",
-        color: "#937DC2",
-        marginLeft: 12
+        color: "#3E00CD",
+        marginLeft: 38,
+        marginTop: 17
     },
     navTextimg: {
         width: '100%',
@@ -274,6 +279,13 @@ const styles = StyleSheet.create({
     },
     headerWelcome: {
         fontSize: 20,
+        fontWeight: 'bold',
+        flexWrap: "wrap",
+        color: "white",
+        marginLeft: 25
+    },
+    headerusername: {
+        fontSize: 25,
         fontWeight: 'bold',
         flexWrap: "wrap",
         color: "white",

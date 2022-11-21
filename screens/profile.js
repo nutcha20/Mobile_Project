@@ -15,7 +15,7 @@ const profile = ({ route, navigation }) => {
     return (
         <View style={styles.container}>
             <View style={styles.wallpaper}>
-                <Image style={{ width: 393, height: 209, marginTop: 20 }} source={require("../assets/Cityscapes Downtown.png")}></Image>
+                <Image style={{ width: "100%", height: 209, marginTop: 20 }} source={require("../assets/Cityscapes Downtown.png")}></Image>
 
             </View>
             <View style={styles.profile_data}>
