@@ -7,14 +7,24 @@ import { db } from '../database/firebase';
 import { LinearGradient } from 'expo-linear-gradient';
 
 const dbSub = collection(db, "subject");
+// const colRef = collection(db, "subject")
 var keepChapter = [];
 updateDbSub();
 
 function updateDbSub() {
     keepChapter = [];
-    getDocs(dbSub).then((x) => x.docs.forEach((doc) => keepChapter.push(doc.data())))
-    console.log(keepChapter)
-}
+    // onSnapshot(dbSub).then((x) => x.docs.forEach((doc) => keepChapter.push(doc.data())))
+    // console.log(keepChapter)
+    //real time update
+    onSnapshot(dbSub, (snapshot) => {
+        console.log(snapshot.docs)
+        snapshot.docs.forEach((doc) => {
+            // setTestData((prev) => [...prev, doc.data()])
+            keepChapter.push({id:doc.id, ...doc.data()})
+            console.log(keepChapter);
+        })
+    })
+  }
 
 const chapterList = ({ route, navigation }) => {
     var itemSubject = [];
@@ -67,39 +77,39 @@ const chapterList = ({ route, navigation }) => {
             colors={['#927DC2', '#C8B1DC', 'white']}
             style={styles.fullContainer}>
             {/* <View style={styles.fullContainer}> */}
-                <View style={styles.navTextimg}>
-                    {/* <TouchableOpacity onPress={() => navigation.navigate('profile')} style={styles.userProfile}>
+            <View style={styles.navTextimg}>
+                {/* <TouchableOpacity onPress={() => navigation.navigate('profile')} style={styles.userProfile}>
             </TouchableOpacity> */}
-                    <View>
-                        <Text style={styles.headerWelcome1}>Let's Learn</Text>
-                        <Text style={styles.headerWelcome2}>{docsSubject[0].nameSubject}</Text>
-                        <Text style={styles.headerWelcome3} numberOfLines={3}>
-                            {docsSubject[0].details}
-                        </Text>
-                    </View>
-                    {/* <View>
+                <View>
+                    <Text style={styles.headerWelcome1}>Let's Learn</Text>
+                    <Text style={styles.headerWelcome2}>{docsSubject[0].nameSubject}</Text>
+                    <Text style={styles.headerWelcome3} numberOfLines={3}>
+                        {docsSubject[0].details}
+                    </Text>
+                </View>
+                {/* <View>
                     <Image style={{ width: 190, height: 190 }} source={require("../assets/Dayflow Buy Online.png")}></Image>
                 </View> */}
-                    {/* </View> */}
-                </View>
-                {/* <Text style={styles.header}>Mobile Device Programming</Text> */}
-                <ScrollView
-                    horizontal
-                    showHorizontalScrollIndicator={false}
-                    bounces={false}
-                    scrollEventThorttle={16}
-                    snapToInterval={SIZE}
-                    decelerationRate="fast"
-                >
-                    {itemSubject}
+                {/* </View> */}
+            </View>
+            {/* <Text style={styles.header}>Mobile Device Programming</Text> */}
+            <ScrollView
+                horizontal
+                showHorizontalScrollIndicator={false}
+                bounces={false}
+                scrollEventThorttle={16}
+                snapToInterval={SIZE}
+                decelerationRate="fast"
+            >
+                {itemSubject}
 
-                    {/* <TouchableOpacity style={styles.button} onPress={() => { navigation.navigate("s5"); }}>
+                {/* <TouchableOpacity style={styles.button} onPress={() => { navigation.navigate("s5"); }}>
                     <Image style={styles.logo} source={require("../assets/icon.png")} />
                     <Text style={styles.description}>บทที่ 1</Text>
                 </TouchableOpacity> */}
-                </ScrollView >
+            </ScrollView >
 
-                {/* <View style={styles.container}>
+            {/* <View style={styles.container}>
                 <TouchableOpacity style={styles.button} onPress={() => { alert("you clicked me") }}>
                     <Image style={styles.logo} source={require("../assets/icon.png")} />
                     <Text style={styles.description}>บทที่ 1</Text>
@@ -112,16 +122,29 @@ const chapterList = ({ route, navigation }) => {
             </View> */}
 
 
-                <View style={styles.buttonCreate}>
-                    {role == "student" ?
-                        <></>
-                        :
-                        <Button title="Create Chapter"
-                            color="#937DC2"
-                            onPress={() => { navigation.navigate("s4"); }}
-                        />
-                    }
-                </View>
+            <View style={styles.buttonCreate}>
+                {role == "student" ?
+                    <></>
+                    :
+                    <Button title="Create Chapter"
+                        color="#937DC2"
+                        onPress={() => {
+                            navigation.navigate("s4", {
+                                idpickSuj: idpickSuj,
+                                chapter: docsSubject[0].chapter,
+                                uid: uid,
+                                role: role,
+                                name: name,
+                                lastname: lastname,
+                                major: major,
+                                degree: degree,
+                                username: username,
+                                idCh: doc.idChapter
+                            });
+                        }}
+                    />
+                }
+            </View>
             {/* </View> */}
         </LinearGradient>
     );

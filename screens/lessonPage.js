@@ -8,7 +8,10 @@ const dbSub = collection(db, "subject");
 var keepChapter = [];
 updateDbSub();
 
+
+
 function updateDbSub() {
+  
   keepChapter = [];
   getDocs(dbSub).then((x) => x.docs.forEach((doc) => keepChapter.push(doc.data())))
   console.log(keepChapter)

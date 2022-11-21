@@ -26,8 +26,8 @@ const HomeScreen = ({ navigation }) => {
               major: x.docs[0].data().major,
               degree: x.docs[0].data().degree,
               username: x.docs[0].data().username,
-              idsuj: x.docs[0].data().idSubject
-              // docc: doc.data()
+              idsuj: x.docs[0].data().idSubject,
+              idTeacher: x.docs[0].data().idTeacher
             });
 
           })

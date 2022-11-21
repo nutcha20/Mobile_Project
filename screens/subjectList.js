@@ -7,16 +7,23 @@ import { render } from "react-dom";
 import { db } from '../database/firebase';
 
 const dbSub = collection(db, "subject");
+// const colRef = collection(db, "subject")
 var keepsubject = [];
 updateDbSub();
 
 function updateDbSub() {
     keepsubject = [];
-    getDocs(dbSub).then((x) => x.docs.forEach((doc) => {
-        keepsubject.push({id:doc.id, ...doc.data()})
-        console.log(keepsubject)
-    }
-    ))
+    // onSnapshot(dbSub).then((x) => x.docs.forEach((doc) => keepChapter.push(doc.data())))
+    // console.log(keepChapter)
+    //real time update
+    onSnapshot(dbSub, (snapshot) => {
+        console.log(snapshot.docs)
+        snapshot.docs.forEach((doc) => {
+            // setTestData((prev) => [...prev, doc.data()])
+            keepsubject.push({id:doc.id, ...doc.data()})
+            console.log(keepsubject);
+        })
+    })
 }
 // getDocs(dbSub).then((x) => x.docs.forEach((doc) => {
 //     keepsubject.push({id:doc.id, ...doc.data()})
@@ -35,16 +42,32 @@ function updateDbSub() {
 
 const subjectList = ({ route, navigation }) => {
     var itemSubject = [];
-    const { role, name, lastname, major, degree, username, docc, idsuj } = route.params;
+    const { role, name, lastname, major, degree, username, docc, idsuj, idTeacher } = route.params;
     const [value, setValue] = useState(null);
 
+
+
     if (role == "student") {
-        var docsSubject = keepsubject.filter(doc => { return doc.major == major })
+        var set = new Set()
+        var docsSubject = []
+        keepsubject.filter(doc => { return doc.major == major }).forEach(item => {
+            if (!set.has(item.nameSubject)) {
+              set.add(item.nameSubject);
+              docsSubject.push(item);
+            }
+          })
     }
     else if (role == "teacher") {
-        var docsSubject = keepsubject.filter(doc => { return doc.idSubject == idsuj })
+        var set = new Set()
+        var docsSubject = []
+        keepsubject.filter(doc => { return doc.idTeacher == idTeacher }).forEach(item => {
+            if (!set.has(item.nameSubject)) {
+              set.add(item.nameSubject);
+              docsSubject.push(item);
+            }
+          })
     }
-    console.log(docsSubject.uid)
+    console.log(idTeacher)
 
     docsSubject.forEach((doc) => {
         itemSubject.push(<TouchableOpacity style={[styles.row, { padding: 10 }]} onPress={() => {
@@ -141,7 +164,7 @@ const subjectList = ({ route, navigation }) => {
                     :
                     <Button title="Add Subject"
                         color="#937DC2"
-                        onPress={() => { navigation.navigate("s2") }}
+                        onPress={() => { navigation.navigate("s2", {idTeacher: idTeacher}) }}
                     />
                 }
             </View>

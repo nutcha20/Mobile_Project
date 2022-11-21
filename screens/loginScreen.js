@@ -51,7 +51,6 @@ const LoginScreen = ({ navigation }) => {
                 var listSubject = [];
 
                 //    getDocs(check).then((x) => {
-
                 //     navigation.replace("s1", { role: x.docs[0].data().role, name: x.docs[0].data().name, lastname: x.docs[0].data().lastName, major: x.docs[0].data().major, degree: x.docs[0].data().degree, username: x.docs[0].data().username});
                 //    })
                 if (check) {
@@ -100,13 +99,13 @@ const LoginScreen = ({ navigation }) => {
                             major: x.docs[0].data().major,
                             degree: x.docs[0].data().degree,
                             username: x.docs[0].data().username,
-                            idsuj: x.docs[0].data().idSubject
-                            // docc: doc.data()
+                            idsuj: x.docs[0].data().idSubject,
+                            idTeacher: x.docs[0].data().idTeacher
                           });
+                          console.log(x.docs[0].data().idTeacher)
 
                     })
                 }
-                console.log(user.email + "success")
             })
             .catch(error => alert("Oop! Something went wrong, please try again later"))
     }
