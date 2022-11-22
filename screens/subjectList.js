@@ -248,7 +248,8 @@ const styles = StyleSheet.create({
         fontSize: 20,
         fontWeight: 'bold',
         flexWrap: "wrap",
-        color: "white"
+        color: "white",
+        textAlign: "left",
     },
     logo: {
         // flexDirection: "row",

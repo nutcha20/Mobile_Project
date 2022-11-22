@@ -113,7 +113,7 @@ const createPage = ({navigation, route}) => {
       <TextInput multiline={true} value={details} onChangeText={(details) => { setDetails(details) }}
         numberOfLines={10} style={styles.area} placeholder="รายละเอียดวิชา"/>
       <View style={styles.buttonAdd}>
-      <Button title="+" color="#937DC2" onPress={pickImage}/>
+      <Button title="+" color="#937DC2" onPress={pickImage} style={{margin: 20}}/>
         <Text style={styles.description}>อัพโหลดรูปหน้าปก</Text>
         {imageShow && <Image style={styles.logo} source={{ uri: imageShow}}/>}
         
@@ -135,32 +135,39 @@ const styles = StyleSheet.create({
     // justifyContent: "flex-start",
     // alignItems: "center",
     backgroundColor: "#fffafd",
+    paddingTop: 20
     
   },
   textinput: {
     height: 50,
-    margin: 12,
+    margin: 20,
     // borderWidth: 1,
     padding: 10,
     color: "gray",
     backgroundColor: "#fff",
     borderRadius: 15,
-    color: "#937DC2"
+    color: "#937DC2",
+    borderColor: "#937DC2",
+    borderWidth: 2,
+    fontWeight: "bold"
   },
   area:{
     height: 100,
-    margin: 12,
-    // borderWidth: 1,
+    margin: 20,
+    borderColor: "#937DC2",
+    borderWidth: 2,
     padding: 10,
     borderRadius: 15,
-    color: "#937DC2"
+    color: "#937DC2",
+    fontWeight: "bold"
 
   },
   header:{
     fontSize: 30,
     margin: 12,
     fontWeight: 'bold',
-    color: "#937DC2"
+    color: "#937DC2",
+    textAlign: "center"
   },
   buttonCreate:{
     flex: 1,

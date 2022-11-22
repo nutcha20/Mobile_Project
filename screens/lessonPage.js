@@ -1,8 +1,9 @@
-import React, { useState, useEffect, useInsertionEffect } from 'react';
+import React, { useState, useEffect, useInsertionEffect, useCallback } from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, TextInput, Text, View, Button, Image, TouchableOpacity } from "react-native";
 import { collection, doc, getDocs, onSnapshot, query, where } from 'firebase/firestore';
 import { db } from '../database/firebase';
-// import VideoPlayer from 'react-native-video';
+import { clickProps } from 'react-native-web/dist/cjs/modules/forwardedProps';
+import YoutubePlayer from "react-native-youtube-iframe";
 
 const dbSub = collection(db, "subject");
 var keepChapter = [];
@@ -11,14 +12,28 @@ updateDbSub();
 
 
 function updateDbSub() {
-  
+
   keepChapter = [];
   getDocs(dbSub).then((x) => x.docs.forEach((doc) => keepChapter.push(doc.data())))
   console.log(keepChapter)
 }
+
+// function RenderVideo(prop){
+//   const [playing, setPlaying] = useState(false);
+//   const toggle = () => {
+//     setPlaying((prev) => !prev);
+//   };
+//   return (
+//     <Youtube
+//     height={200}
+//     width={300}
+//     play={playing}
+//     videoId={}
+//     />
+//   )
+// }
 const createSubject = ({ navigation, route }) => {
   var itemSubject = [];
-
   // const [value, setValue] = useState(null);
   const { role, name, lastname, major, degree, username, idpickSuj, idCh } = route.params;
   useEffect(() => {
@@ -35,11 +50,23 @@ const createSubject = ({ navigation, route }) => {
   console.log(docsSubject)
   // var docsLesson = docsSubject[].chapter.filter(doc => { return doc.idChapter == idCh })
   var ChapterPickList = docsSubject.chapter[parseInt(idCh) - 1];
+  const [playing, setPlaying] = useState(false);
+
+  const onStateChange = useCallback((state) => {
+    if (state === "ended") {
+      setPlaying(false);
+      Alert.alert("video has finished playing!");
+    }
+  }, []);
+
+  const togglePlaying = useCallback(() => {
+    setPlaying((prev) => !prev);
+  }, []);
   itemSubject.push(
     <View style={styles.row}>
       <View style={[styles.col, { padding: 30 }]}>
         <Text style={styles.header}>Chapter {ChapterPickList.idChapter}</Text>
-        <Text style={styles.chapterName}>{ChapterPickList.name}</Text>
+        <Text style={styles.chapterName}>{ChapterPickList.nameChapter}</Text>
         <Text style={[{ fontSize: 20, color: "#3E00CD" }]} numberOfLines={3}>
           {ChapterPickList.detail}
         </Text>
@@ -48,12 +75,15 @@ const createSubject = ({ navigation, route }) => {
           <Text style={[{ fontSize: 20, color: "#3E00CD" }]}>Week{ChapterPickList.idChapter}.pdf</Text>
         </View>
         <Image style={{ width: "100%", height: "50%", marginTop: 340 }} source={require("../assets/Dayflow Sitting.png")}></Image>
-        {/* <VideoPlayer
-          video={{ uri: ChapterPickList.vdo}}
-          videoWidth={1600}
-          videoHeight={900}
-          thumbnail={{ uri: 'https://www.flaticon.com/free-animated-icon/video-player_8121299?term=player&page=1&position=1&page=1&position=1&related_id=8121299&origin=search' }}
-        /> */}
+        <View>
+          <YoutubePlayer
+            height={300}
+            play={playing}
+            videoId={"pIkYTTlVwXY"}
+            onChangeState={onStateChange}
+          />
+          <Button title={playing ? "pause" : "play"} onPress={togglePlaying} />
+        </View>
       </View>
     </View>
   )

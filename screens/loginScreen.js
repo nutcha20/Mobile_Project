@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/core'
 import React, { useEffect, useState } from 'react'
-import { KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, View, Image } from 'react-native'
 import { auth, db } from '../database/firebase'
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
 import { collection, getDocs, where, addDoc, deleteDoc, getDoc, query, onSnapshot } from "firebase/firestore"
@@ -115,6 +115,7 @@ const LoginScreen = ({ navigation }) => {
             style={styles.container}
             behavior="padding"
         >
+            <Image style={{ width: 270, height: 270, marginBottom: 20 }} source={require("../assets/Dayflow Riding.png")}></Image>
             <View style={styles.inputContainer}>
                 <TextInput
                     placeholder="Email"
@@ -150,6 +151,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
+        backgroundColor: "#EDE1F8"
     },
     inputContainer: {
         width: '80%'
@@ -159,7 +161,8 @@ const styles = StyleSheet.create({
         paddingHorizontal: 15,
         paddingVertical: 10,
         borderRadius: 10,
-        marginTop: 5,
+        marginTop: 10,
+        color: "#937DC2"
     },
     buttonContainer: {
         width: '60%',

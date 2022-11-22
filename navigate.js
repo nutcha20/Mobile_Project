@@ -35,7 +35,7 @@ const navigator = () => {
                 />
                 <Stack.Screen name="profile" component={profile}
                     options={{
-                        title: "Profile",
+                        title: "Back",
                         headerStyle: { backgroundColor: "#937DC2" },
                         headerTintColor: "white",
 
@@ -44,7 +44,7 @@ const navigator = () => {
                 <Stack.Screen name="s1" component={subject}
                     options={{
                         headerShown: false,
-                        title: "My Subject",
+                        title: "Back",
                         headerStyle: { backgroundColor: "#937DC2" },
                         headerTintColor: "white",
                         // headerRight: () => (
@@ -56,31 +56,31 @@ const navigator = () => {
                 />
                 <Stack.Screen name="s2" component={createSj}
                     options={{
-                        title: "Create Subject",
+                        title: "Back",
                         headerStyle: { backgroundColor: "#937DC2" },
                         headerTintColor: "white",
-                        headerRight: () => (<Button title="user profile" />)
+                        // headerRight: () => (<Button title="user profile" />)
 
                     }} />
                 <Stack.Screen name="s3" component={chapter}
                     options={{
-                        title: "Chapter List",
+                        title: "Back",
                         headerStyle: { backgroundColor: "#937DC2" },
                         headerTintColor: "white",
-                        headerRight: () => (<Button title="user profile" />)
+                        // headerRight: () => (<Button title="user profile" />)
 
                     }} />
                 <Stack.Screen name="s4" component={createCh}
                     options={{
-                        title: "Create Chapter",
+                        title: "Back",
                         headerStyle: { backgroundColor: "#937DC2" },
                         headerTintColor: "white",
-                        headerRight: () => (<Button title="user profile" />)
+                        // headerRight: () => (<Button title="user profile" />)
 
                     }} />
                 <Stack.Screen name="s5" component={lesson}
                     options={{
-                        title: "Chapter 1",
+                        title: "Back",
                         headerStyle: { backgroundColor: "#937DC2" },
                         headerTintColor: "white",
                         // headerRight: () => (<Button title="user profile" />)

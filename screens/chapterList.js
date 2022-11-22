@@ -29,7 +29,7 @@ function updateDbSub() {
 const chapterList = ({ route, navigation }) => {
     var itemSubject = [];
     const { width } = useWindowDimensions();
-    const SIZE = width * 0.7
+    const SIZE = width
     const [value, setValue] = useState(null);
     const { role, name, lastname, major, degree, username, idpickSuj, uid } = route.params;
     useEffect(() => {
@@ -66,7 +66,7 @@ const chapterList = ({ route, navigation }) => {
             <Image style={{ width: '100%', height: "60%", marginBottom: 5, backgroundColor: "#C8B1DC", borderTopLeftRadius: 20, borderTopRightRadius: 20 }} source={require("../assets/Dayflow Buy Online.png")}></Image>
             <View style={[{ margin: 10 }]}>
                 <Text style={[{ fontSize: 40, fontWeight: 'bold', color: "#3E00CD" }]}>Chapter {doc.idChapter}</Text>
-                <Text style={[{ fontSize: 15, fontWeight: 'bold', color: "#3E00CD" }]}>{doc.name}</Text>
+                <Text style={[{ fontSize: 15, fontWeight: 'bold', color: "#3E00CD" }]}>{doc.nameChapter}</Text>
             </View>
         </TouchableOpacity>
         )
@@ -80,9 +80,9 @@ const chapterList = ({ route, navigation }) => {
             <View style={styles.navTextimg}>
                 {/* <TouchableOpacity onPress={() => navigation.navigate('profile')} style={styles.userProfile}>
             </TouchableOpacity> */}
-                <View>
+                <View style={styles.col}>
                     <Text style={styles.headerWelcome1}>Let's Learn</Text>
-                    <Text style={styles.headerWelcome2}>{docsSubject[0].nameSubject}</Text>
+                    <Text style={styles.headerWelcome2} numberOfLines={3}>{docsSubject[0].nameSubject}</Text>
                     <Text style={styles.headerWelcome3} numberOfLines={3}>
                         {docsSubject[0].details}
                     </Text>
@@ -100,6 +100,7 @@ const chapterList = ({ route, navigation }) => {
                 scrollEventThorttle={16}
                 snapToInterval={SIZE}
                 decelerationRate="fast"
+                style={styles.scroll}
             >
                 {itemSubject}
 
@@ -190,10 +191,11 @@ const styles = StyleSheet.create({
         backgroundColor: "white",
     },
     col: {
-        flex: 1,
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
+        flex: 2,
+        flexDirection: "col",
+        justifyContent: "flex-start",
+        alignItems: "flex-start",
+        // marginLeft: 15
     },
     header: {
         fontSize: 30,
@@ -225,8 +227,8 @@ const styles = StyleSheet.create({
         shadowRadius: 10,
         shadowOpacity: 0.35,
         width: 280,
-        height: '90%',
-        margin: 20,
+        height: '85%',
+        margin: 15,
 
 
     },
@@ -236,7 +238,10 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         // backgroundColor: "#927DC2",
         justifyContent: "space-between",
-        alignItems: "center"
+        alignItems: "center",
+        // backgroundColor: "blue",
+        padding: 20,
+        marginTop: 10
     },
     headerWelcome1: {
         fontSize: 20,
@@ -259,6 +264,10 @@ const styles = StyleSheet.create({
         color: "white",
         marginLeft: 25
     },
+    scroll: {
+        // width: 280,
+        height: '85%',
+    }
     // userProfile: {
     //     backgroundColor: "white",
     //     justifyContent: "center",
